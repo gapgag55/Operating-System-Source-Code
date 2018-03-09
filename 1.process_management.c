@@ -1,15 +1,14 @@
 #include <stdio.h>
-#include <sys/syscall.h>
 #include <unistd.h>
 #include <stdlib.h>
-
-#define TRUE 1
 
 int main() {
 
   pid_t pid;
+  int x = 10;
 
   // fork another process 
+  // form from System Call
   pid = fork();
 
   // Error occurred
@@ -21,13 +20,15 @@ int main() {
   // Child Process
   else if (pid == 0)
   {
-    execlp("/bin/ls", "ls", NULL);
+    x = x + 2;
+    printf("x = %d\n", x);
+    printf("x again = %d\n", x);
   }
   else 
   {
     // Parent Process
     wait(NULL);
-    printf("Child Complete");
+    printf("Child Complete x = %d\n", x);
     exit(0);
   }
 
